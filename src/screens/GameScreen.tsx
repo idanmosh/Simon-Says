@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { StyleSheet, Text, View, Vibration, Modal, Dimensions } from "react-native";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { actionCreators as actions } from "../redux/indexSlice";
@@ -40,13 +40,14 @@ export const GameScreen = () => {
     });
     
     const startMatch = useCallback(() => {
-        getTopScores()
-        .then(res => {
-            dispatch(actions.loadTopScores(res)); 
-            dispatch(actions.startGame({ next: randId() }));
-            waitTime(SONG_DELAY_TIME).then(() => actions.sing());
-        });
+        dispatch(actions.startGame({ next: randId() }));
+        waitTime(SONG_DELAY_TIME).then(() => actions.sing());
     }, [dispatch]);
+
+    useEffect(() => {
+        getTopScores()
+        .then(res => dispatch(actions.loadTopScores(res)));
+    }, [])
 
     const onPadClick = ({ id }: { id: string }) => {
         const tail = guessed.length;
