@@ -1,0 +1,2 @@
+export const GAME_SCREEN = "GAME_SCREEN";
+export const RESULTS_SCREEN = "RESULTS_SCREEN"; 
