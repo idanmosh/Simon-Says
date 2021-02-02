@@ -1,1 +1,1 @@
-# simon_says
+# simon says game
